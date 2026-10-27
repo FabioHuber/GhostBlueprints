@@ -1,5 +1,7 @@
 package dev.ghostblueprints.render;
 
+import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 
@@ -20,6 +22,10 @@ public final class BlockMatcher {
         if (matches) {
             return null;
         }
-        return actual.getMaterial().isAir() || block.isReplaceable() ? GhostKind.MISSING : GhostKind.WRONG;
+        return actual.getMaterial().isAir() || isReplaceable(actual.getMaterial()) ? GhostKind.MISSING : GhostKind.WRONG;
+    }
+
+    private static boolean isReplaceable(Material material) {
+        return material == Material.WATER || material == Material.LAVA || Tag.REPLACEABLE.isTagged(material);
     }
 }

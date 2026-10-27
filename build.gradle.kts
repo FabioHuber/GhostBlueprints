@@ -9,6 +9,7 @@ version = "0.1.0"
 repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
 }
 
 // Release builds target Java 21. Paper 26.x APIs require Java 25 to compile against, so the
@@ -20,11 +21,16 @@ java {
     targetCompatibility = JavaVersion.toVersion(javaRelease)
 }
 
+// Compiled against the Spigot API so the jar cannot use Paper-only methods and runs on Spigot and Paper.
 // Override to verify forward compatibility, e.g. -PpaperApi=26.3.build.226-stable (needs JDK 25).
-val paperApi = providers.gradleProperty("paperApi").getOrElse("1.21.4-R0.1-SNAPSHOT")
+val paperApi = providers.gradleProperty("paperApi")
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:$paperApi")
+    if (paperApi.isPresent) {
+        compileOnly("io.papermc.paper:paper-api:${paperApi.get()}")
+    } else {
+        compileOnly("org.spigotmc:spigot-api:1.21.4-R0.1-SNAPSHOT")
+    }
 
     testImplementation(platform("org.junit:junit-bom:5.11.4"))
     testImplementation("org.junit.jupiter:junit-jupiter")

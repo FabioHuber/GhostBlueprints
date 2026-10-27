@@ -21,14 +21,14 @@ jobs:
           name: GhostBlueprints
           path: build/libs/*.jar
 
-  # The release jar targets Java 21 and the 1.21.4 API. These jobs prove the source still
+  # The release jar targets Java 21 and the Spigot 1.21.4 API (so it also runs on Paper). These jobs prove the source still
   # compiles and the tests pass against newer Paper APIs (which require Java 25).
   compatibility:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        paper-api: [26.1.2.build.74-stable, 26.2.build.135-stable, 26.3.build.226-stable]
+        paper-api: [1.21.4-R0.1-SNAPSHOT, 26.1.2.build.74-stable, 26.2.build.135-stable, 26.3.build.226-stable]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4

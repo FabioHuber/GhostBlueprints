@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Supplier;
-import net.kyori.adventure.text.Component;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -86,7 +87,8 @@ public final class GhostRenderer {
         }
 
         if (config.actionBar()) {
-            player.sendActionBar(actionBar(session, current.size()));
+            player.spigot().sendMessage(
+                    ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionBar(session, current.size())));
         }
     }
 
@@ -187,9 +189,9 @@ public final class GhostRenderer {
         return display;
     }
 
-    private static Component actionBar(BlueprintSession session, int ghostCount) {
+    private static String actionBar(BlueprintSession session, int ghostCount) {
         String layer = session.layer() < 0 ? "all" : (session.layer() + 1) + "/" + session.height();
-        return Component.text("Blueprint " + session.blueprint().name() + " | layer " + layer + " | " + ghostCount + " ghosts");
+        return "Blueprint " + session.blueprint().name() + " | layer " + layer + " | " + ghostCount + " ghosts";
     }
 
     private static long key(int x, int y, int z) {

@@ -1,6 +1,6 @@
 # Ghost Blueprints
 
-Build from a schematic on a **vanilla client**. Ghost Blueprints shows the blocks you still have to place as
+Build from a schematic on a **vanilla client** (Spigot and Paper). Ghost Blueprints shows the blocks you still have to place as
 small ghost blocks that only you can see, marks wrong blocks in red, and tells you which materials
 you are missing. Think Litematica, but server-side: no client mod required.
 
@@ -18,14 +18,14 @@ you are missing. Think Litematica, but server-side: no client mod required.
 
 ## Requirements
 
-- Paper (or a fork) 1.21.4 or newer, including the 26.x releases (26.1, 26.2, 26.3)
+- Spigot or Paper (and forks) 1.21.4 or newer, including the 26.x releases (26.1, 26.2, 26.3)
 - Java 21 or newer (Paper 26.x itself requires Java 25)
 
 ### Compatibility
 
-The release jar is built against the Paper 1.21.4 API with Java 21 bytecode, which runs unchanged on newer servers.
-It only uses the stable Bukkit/Paper API (no NMS, no reflection), so there is nothing to remap. CI compiles and tests
-the same source against Paper API 26.1, 26.2 and 26.3 on every push. To check another version locally:
+The release jar is built against the Spigot 1.21.4 API with Java 21 bytecode, so it cannot use Paper-only methods and
+runs on both Spigot and Paper. It uses no NMS and no reflection, so there is nothing to remap. CI compiles and tests
+the same source against Paper API 1.21.4, 26.1, 26.2 and 26.3 on every push. To check another version locally:
 
 ```bash
 ./gradlew build -PpaperApi=26.3.build.226-stable -PjavaRelease=25   # needs JDK 25
