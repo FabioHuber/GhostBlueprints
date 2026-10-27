@@ -1,0 +1,27 @@
+# Ghost Blueprints configuration. Apply changes with /blueprint reload.
+
+render:
+  # Ghosts are only drawn within this many blocks of the player (4-64).
+  radius: 16
+  # Hard cap on simultaneous ghost entities per player (50-10000). Nearest are kept.
+  max-ghosts: 1500
+  # How often ghosts are recalculated, in ticks (1-40).
+  update-interval-ticks: 5
+  # Size of "missing" ghosts relative to a full block (0.1-1.0). Smaller shows what is behind them.
+  missing-scale: 0.6
+  # Outline missing ghosts through walls. Wrong blocks are always outlined in red.
+  missing-glow: false
+  # Show layer and ghost count above the hotbar.
+  action-bar: true
+
+# MATERIAL: a block counts as correct when the block type matches.
+# STATE: block states (facing, half, ...) must match too; stricter, can report false positives.
+match-mode: MATERIAL
+
+limits:
+  # Largest schematic volume (width * height * length) that can be loaded.
+  max-volume: 4000000
+
+blueprints:
+  # Also list schematics from plugins/WorldEdit/schematics and plugins/FastAsyncWorldEdit/schematics.
+  import-worldedit-folders: true

@@ -1,0 +1,21 @@
+name: GhostBlueprints
+version: '${version}'
+main: dev.ghostblueprints.GhostBlueprintsPlugin
+api-version: '1.21'
+description: Shows schematics as per-player ghost blocks so you can build from a blueprint on a vanilla client.
+author: Fabio Huber
+
+commands:
+  blueprint:
+    description: Load, place and track ghost blueprints.
+    usage: /<command> help
+    aliases: [bp, ghost]
+    permission: ghostblueprints.use
+
+permissions:
+  ghostblueprints.use:
+    description: Use the /blueprint command.
+    default: true
+  ghostblueprints.admin:
+    description: Reload the configuration.
+    default: op
