@@ -11,8 +11,20 @@ repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
 }
 
+// Release builds target Java 21. Paper 26.x APIs require Java 25 to compile against, so the
+// forward-compatibility check raises the release level: -PjavaRelease=25.
+val javaRelease = providers.gradleProperty("javaRelease").map(String::toInt).getOrElse(21)
+
+java {
+    sourceCompatibility = JavaVersion.toVersion(javaRelease)
+    targetCompatibility = JavaVersion.toVersion(javaRelease)
+}
+
+// Override to verify forward compatibility, e.g. -PpaperApi=26.3.build.226-stable (needs JDK 25).
+val paperApi = providers.gradleProperty("paperApi").getOrElse("1.21.4-R0.1-SNAPSHOT")
+
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:$paperApi")
 
     testImplementation(platform("org.junit:junit-bom:5.11.4"))
     testImplementation("org.junit.jupiter:junit-jupiter")
@@ -22,7 +34,7 @@ dependencies {
 tasks {
     withType<JavaCompile> {
         options.encoding = "UTF-8"
-        options.release = 21
+        options.release = javaRelease
     }
 
     processResources {

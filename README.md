@@ -18,7 +18,18 @@ you are missing. Think Litematica, but server-side: no client mod required.
 
 ## Requirements
 
-- Paper (or a fork) 1.21.4 or newer, Java 21
+- Paper (or a fork) 1.21.4 or newer, including the 26.x releases (26.1, 26.2, 26.3)
+- Java 21 or newer (Paper 26.x itself requires Java 25)
+
+### Compatibility
+
+The release jar is built against the Paper 1.21.4 API with Java 21 bytecode, which runs unchanged on newer servers.
+It only uses the stable Bukkit/Paper API (no NMS, no reflection), so there is nothing to remap. CI compiles and tests
+the same source against Paper API 26.1, 26.2 and 26.3 on every push. To check another version locally:
+
+```bash
+./gradlew build -PpaperApi=26.3.build.226-stable -PjavaRelease=25   # needs JDK 25
+```
 
 ## Installation
 
